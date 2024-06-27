@@ -5,30 +5,12 @@ import { useSnapshot } from "valtio";
 import state from "../store";
 import { fadeAnimation, slideAnimation } from "../config/motion";
 import { DecalTypes, EditorTabs, FilterTabs } from "../config/constants";
-import {
-  AIPicker,
-  ColorPicker,
-  CustomButton,
-  FilePicker,
-  Tab,
-} from "../components";
+import { ColorPicker, CustomButton, FilePicker, Tab } from "../components";
 import { reader } from "../config/helpers";
-
-{
-  /* <button className='download-btn' onClick={downloadCanvasToImage}>
-<img
-  src={download}
-  alt='download_image'
-  className='object-contain w-3/5 h-3/5'
-/>
-</button> */
-}
 
 const Customizer = () => {
   const snap = useSnapshot(state);
   const [file, setFile] = useState("");
-  const [prompt, setPrompt] = useState("");
-  const [generatingImg, setGeneratingImg] = useState(false);
   const [activeEditorTab, setActiveEditorTab] = useState("");
   const [activeFilterTab, setActiveFilterTab] = useState({
     logoShirt: true,
@@ -42,30 +24,8 @@ const Customizer = () => {
         return <ColorPicker />;
       case "filepicker":
         return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
-      case "aipicker":
-        return (
-          <AIPicker
-            prompt={prompt}
-            setPrompt={setPrompt}
-            generatingImg={generatingImg}
-            handleSubmit={handleSubmit}
-          />
-        );
       default:
         return null;
-    }
-  };
-
-  const handleSubmit = async (type) => {
-    if (!prompt) return alert("Please enter a prompt");
-
-    try {
-      // call backend to generate an ai image
-    } catch (error) {
-      alert(error);
-    } finally {
-      setGeneratingImg(false);
-      setActiveEditorTab("");
     }
   };
 
